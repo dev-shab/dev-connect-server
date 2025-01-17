@@ -1,0 +1,19 @@
+{
+  "name": "dev-connect-server",
+  "version": "1.0.0",
+  "description": "Connect for devs",
+  "main": "app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
+  },
+  "keywords": [
+    "nodejs",
+    "javascript"
+  ],
+  "author": "dev_shab",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
