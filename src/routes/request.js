@@ -36,7 +36,7 @@ router.post("/send/:status/:toUserId", userAuth, async (req, res) => {
       throw new Error("Unexpected error occured");
     }
     return res.json({
-      message: req.user.firstName + status + toUser.firstName,
+      message: req.user.firstName + " " + status + " " + toUser.firstName,
       data: data,
     });
   } catch (err) {
