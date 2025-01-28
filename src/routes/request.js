@@ -44,4 +44,38 @@ router.post("/send/:status/:toUserId", userAuth, async (req, res) => {
   }
 });
 
+router.post(
+  "/review/:status/:connectionRequestId",
+  userAuth,
+  async (req, res) => {
+    try {
+      const { connectionRequestId, status } = req.params;
+      const loggedInUser = req.user;
+      if (!["accepted", "rejected"].includes(status)) {
+        throw new Error("Unsupported status for reviewing a request");
+      }
+      const connectionRequest = await ConnectionRequest.findOne({
+        _id: connectionRequestId,
+        toUserId: loggedInUser._id,
+        status: "interested",
+      });
+      if (!connectionRequest) {
+        throw new Error("Connection request doesn't exist");
+      }
+      const fromUser = await User.findById(connectionRequest.fromUserId);
+      connectionRequest.status = status;
+      const data = await connectionRequest.save();
+      if (!data) {
+        throw new Error("Unexpected error occured");
+      }
+      return res.status(200).json({
+        message: "Connection request from " + fromUser.firstName + " " + status,
+        data: data,
+      });
+    } catch (err) {
+      return res.status(400).send("ERROR : " + err?.message);
+    }
+  }
+);
+
 module.exports = router;
