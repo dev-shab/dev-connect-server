@@ -50,3 +50,12 @@
   proxy_set_header X-Forwarded-Proto $scheme;
   }
 - sudo systemctl restart nginx
+
+# Adding a custom domain name
+
+- Purchase domain name from goDaddy
+- SignUp on cludflare and add a domain name
+- Change the nameservers on goDaddy and point it to cloudflare
+- Add A record - DNS - IP Address
+- Add CNAME record
+- Enable SSL fro website from cloudflare
